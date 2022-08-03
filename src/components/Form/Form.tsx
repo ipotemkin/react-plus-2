@@ -32,22 +32,23 @@ export const Form: FC<FormProps> = () => {
 
     const { username, password, 'cats-breed': catsBreed, agree, review, color, avatar } = form;
 
-    const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { target } = event;
+    const getFieldChangeHandler = (fieldname: string) => {
+        return (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+            const { target } = event;
 
-        if (isSelectElement(target)) {
-            setForm(prev => ({ ...prev, [target.name]: target.value }));
-            return;
+            if (isSelectElement(target)) {
+                setForm(prev => ({ ...prev, [fieldname]: target.value }));
+                return;
+            }
+    
+            if (isTextAreaElement(target)) {
+                setForm(prev => ({ ...prev, [fieldname]: target.value }));
+                return;
+            }
+    
+            setForm(prev => ({ ...prev, [fieldname]: target.type === 'checkbox' ? target.checked : target.value }));    
         }
-
-        if (isTextAreaElement(target)) {
-            setForm(prev => ({ ...prev, [target.name]: target.value }));
-            return;
-        }
-
-        setForm(prev => ({ ...prev, [target.name]: target.type === 'checkbox' ? target.checked : target.value }));
-    };
-
+    }
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -98,7 +99,7 @@ export const Form: FC<FormProps> = () => {
                 name="username"
                 className={cnForm('input', cnForm('username'))}
                 value={username}
-                onChange={handleFieldChange}
+                onChange={getFieldChangeHandler('username')}
             />
         </div>
         <div>
@@ -109,7 +110,7 @@ export const Form: FC<FormProps> = () => {
                 name="password"
                 className={cnForm('input', cnForm('password'))}
                 value={password}
-                onChange={handleFieldChange}
+                onChange={getFieldChangeHandler('password')}
             />
         </div>
         <div>
@@ -119,7 +120,7 @@ export const Form: FC<FormProps> = () => {
                 name="cats-breed"
                 className={cnForm('input', cnForm('cats-breed'))}
                 value={catsBreed}
-                onChange={handleFieldChange}
+                onChange={getFieldChangeHandler('cats-breed')}
             >
                 <option value="">Выберите....</option>
                 <option value="pers">Персидские</option>
@@ -135,7 +136,7 @@ export const Form: FC<FormProps> = () => {
                 name="agree"
                 className={cnForm('input', cnForm('agree'))}
                 checked={agree}
-                onChange={handleFieldChange}
+                onChange={getFieldChangeHandler('agree')}
             />
         </div>
         <div>
@@ -146,7 +147,7 @@ export const Form: FC<FormProps> = () => {
                 name="review"
                 className={cnForm('input', cnForm('review'))}
                 value={review}
-                onChange={handleFieldChange}
+                onChange={getFieldChangeHandler('review')}
             />
             <Tooltip anchorRef={ref}/>
         </div>
@@ -160,7 +161,7 @@ export const Form: FC<FormProps> = () => {
                 className={cnForm('input', cnForm('color'))}
                 value="stripes"
                 checked={color === 'stripes'}
-                onChange={handleFieldChange}
+                onChange={getFieldChangeHandler('color')}
             />
             <label htmlFor="dots">Пятнистый</label>
             <input
@@ -170,7 +171,7 @@ export const Form: FC<FormProps> = () => {
                 className={cnForm('input', cnForm('color'))}
                 value="dots"
                 checked={color === 'dots'}
-                onChange={handleFieldChange}
+                onChange={getFieldChangeHandler('color')}
             />
             <label htmlFor="fill">Однородный</label>
             <input
@@ -180,7 +181,7 @@ export const Form: FC<FormProps> = () => {
                 className={cnForm('input', cnForm('color'))}
                 value="fill"
                 checked={color === 'fill'}
-                onChange={handleFieldChange}
+                onChange={getFieldChangeHandler('color')}
             />
         </div>
         <button>Отправить</button>
