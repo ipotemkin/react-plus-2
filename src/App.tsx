@@ -1,10 +1,17 @@
-import './App.css';
-import { Picture } from './components/Picture/Picture';
-import { Form } from './components/Form/Form';
+import './App.css'
+import { Picture } from './components/Picture/Picture'
+import { Form } from './components/Form/Form'
 
 // import imagePlaceholder from './components/Picture/assets/logo512.png'
 import targetImage from './components/Picture/assets/aleksandra-sapozhnikova-BthSqlD2Cso-unsplash.jpg'
+import { Menu, MenuItem } from './components/Menu/Menu'
 
+const menu: MenuItem[] = [
+  { id: 1, name: 'line 1' },
+  { id: 2, name: 'line 2' },
+  { id: 3, name: 'line 3' },  
+  { id: 4, name: 'line 4' },  
+]
 
 function App() {
   return (
@@ -19,21 +26,19 @@ function App() {
 
         <h2>Фабрика onChange</h2>
         <Form />
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
+
+        <h2>Выпадающее меню</h2>
+        <Menu menu={menu}/>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,0 +1,95 @@
+:root {
+  --color-primary: black;
+  --color-info: cornflowerblue;
+  --color-danger: red;
+  --color-secondary: lightgray;
+  --color-action: white;
+}
+
+.StateButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+
+  background-color: var(--color-secondary);
+  font-size: 2rem;
+  
+  transition: all 0.3s;
+}
+
+.StateButton:hover {
+  cursor: pointer;
+  background-color: darkslateblue;
+  /* background-color: yellow; */
+  /* color: black; */
+}
+  
+.StateButton_type_action {
+  background-color: var(--color-info);
+  color: var(--color-action);
+}
+
+.StateButton_type_outlined,
+.StateButton_type_outlined-info,
+.StateButton_type_outlined-danger {
+  background-color: var(--color-action);
+  border: 1px solid var(--color-secondary);
+}
+
+.StateButton_type_outlined-info {
+  border: 1px solid var(--color-action);
+  color: var(--color-info);
+}
+
+.StateButton_type_outlined-danger {
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+
+.StateButton_type_raised {
+  background-color: var(--color-action);
+  border: none;
+  box-shadow: 10px 10px 20px var(--color-secondary);
+}
+
+.StateButton_type_flat,
+.StateButton_type_flat-info,
+.StateButton_type_flat-danger,
+.StateButton_type_flat-secondary {
+  background-color: var(--color-action);
+}
+
+.StateButton_type_flat-info {
+  color: var(--color-info);
+}
+
+.StateButton_type_flat-danger {
+  color: var(--color-danger);
+}
+
+.StateButton_type_flat-secondary {
+  color: var(--color-secondary);
+}
+
+.StateButton_size_s {
+ padding: 6px 12px; 
+}
+
+.StateButton_size_l {
+  padding: 16px 30px;
+ }
+
+.StateButton_size_xl {
+  padding: 20px 36px;
+  font-size: 2.5rem;
+}
+
+.StateButton-Icon {
+  width: 36px;
+  cursor: not-allowed;
+}
