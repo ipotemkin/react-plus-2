@@ -1,7 +1,3 @@
-.Menu {
-
-}
-
 .Menu-Container {
     display: flex;
     flex-direction: column;
@@ -15,10 +11,6 @@
 .Menu-Item input[type=radio] {
     display: none;
 }
-
-/* .Menu-Item input[type=radio]:checked + label {
-    background-color: cornflowerblue;
-} */
 
 .Menu-Item input[type=radio]:not(checked) + label:before {
     content: "▢ ";

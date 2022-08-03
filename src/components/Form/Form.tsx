@@ -1,20 +1,16 @@
-import React, { FC, useRef, useState } from 'react';
-import { Tooltip } from '../Tooltip/Tooltip';
+import React, { FC, useRef, useState } from 'react'
+import { Tooltip } from '../Tooltip/Tooltip'
 
-import { cnForm } from './Form.classname';
+import { cnForm } from './Form.classname'
 
-type FormProps = {
-
-};
-
-const noop = () => {};
+type FormProps = {}
 
 function isSelectElement(element: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): element is HTMLSelectElement {
-    return element.tagName === 'SELECT';
+    return element.tagName === 'SELECT'
 }
 
 function isTextAreaElement(element: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): element is HTMLTextAreaElement {
-    return element.tagName === 'TEXTAREA';
+    return element.tagName === 'TEXTAREA'
 }
 
 export const Form: FC<FormProps> = () => {
@@ -26,56 +22,52 @@ export const Form: FC<FormProps> = () => {
         review: '',
         color: undefined,
         avatar: '',
-    });
-    const ref = useRef(null);
-    const fileRef = useRef<HTMLInputElement>(null);
+    })
+    const ref = useRef(null)
+    const fileRef = useRef<HTMLInputElement>(null)
 
-    const { username, password, 'cats-breed': catsBreed, agree, review, color, avatar } = form;
+    const { username, password, 'cats-breed': catsBreed, agree, review, color, avatar } = form
 
     const getFieldChangeHandler = (fieldname: string) => {
         return (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-            const { target } = event;
+            const { target } = event
 
             if (isSelectElement(target)) {
-                setForm(prev => ({ ...prev, [fieldname]: target.value }));
-                return;
+                setForm(prev => ({ ...prev, [fieldname]: target.value }))
+                return
             }
     
             if (isTextAreaElement(target)) {
-                setForm(prev => ({ ...prev, [fieldname]: target.value }));
-                return;
+                setForm(prev => ({ ...prev, [fieldname]: target.value }))
+                return
             }
     
-            setForm(prev => ({ ...prev, [fieldname]: target.type === 'checkbox' ? target.checked : target.value }));    
+            setForm(prev => ({ ...prev, [fieldname]: target.type === 'checkbox' ? target.checked : target.value }))
         }
     }
 
     const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
+        event.preventDefault()
 
-        console.log(form);
+        console.log(form)
     }
 
     const handleAvatarChange = () => {
-        const fileElement = fileRef.current;
+        const fileElement = fileRef.current
+        if (!fileElement) return
 
-        if (!fileElement) {
-            return;
-        }
+        const file = fileElement.files && fileElement.files[0]
+        if (!file) return
 
-        const file = fileElement.files && fileElement.files[0];
-
-        if (!file) return;
-
-        const reader = new FileReader();
+        const reader = new FileReader()
 
         reader.addEventListener('load', (event: ProgressEvent<FileReader>) => {
-            console.log(event.target?.result);
+            console.log(event.target?.result)
 
-            setForm(prev => ({ ...prev, avatar: event.target?.result as string }));
-        });
+            setForm(prev => ({ ...prev, avatar: event.target?.result as string }))
+        })
 
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file)
     };
 
     return <form className={cnForm()} onSubmit={handleSubmit}>
@@ -185,5 +177,5 @@ export const Form: FC<FormProps> = () => {
             />
         </div>
         <button>Отправить</button>
-    </form>;
-};
+    </form>
+}

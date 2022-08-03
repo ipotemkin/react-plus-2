@@ -5,6 +5,8 @@ import { Form } from './components/Form/Form'
 // import imagePlaceholder from './components/Picture/assets/logo512.png'
 import targetImage from './components/Picture/assets/aleksandra-sapozhnikova-BthSqlD2Cso-unsplash.jpg'
 import { Menu, MenuItem } from './components/Menu/Menu'
+import { Filter } from './components/Filter/Filter'
+import { htmlTags } from './html-tags'
 
 const menu: MenuItem[] = [
   { id: 1, name: 'line 1' },
@@ -29,6 +31,9 @@ function App() {
 
         <h2>Выпадающее меню</h2>
         <Menu menu={menu}/>
+
+        <h2>Фильтр</h2>
+        <Filter data={htmlTags}/>
 
         <br />
         <br />
