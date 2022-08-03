@@ -1,46 +1,97 @@
-# Getting Started with Create React App
+# React + Typescript: ДЗ 2. Работа с формами
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Домашнее задание
 
-## Available Scripts
+## Зеленый коридор
 
-In the project directory, you can run:
+### Podojdi, podojdi…
 
-### `npm start`
+Сделайте компонент-картинку, который до тех пор пока картинка загружается показывает красивый плейсхолдер, а когда картинка загрузилась – она отображалась. Можете, при желании использовать тестовые данные из unsplash, там заодно есть еще и средний цвет картинки, который может быть полезен для плейсхолдера.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Фабрика onChange
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Мы с вами сделали на занятии обработчик onChange – handleFieldChange. Его особенность – в использовании атрибута name из сырой node, но мы не всегда можем себе это позволить. Например, при работе со сторонними компонентами, для них может быть не предусмотрена возможность пробросить нужные нам данные в DOM-узел input. 
+Сделаем хитрее! Теперь у нас будет фабрика обработчиков.
 
-### `npm test`
+Что от вас требуется – в форме с занятия вместо `onChange={handleFieldChange}` сделать `onChange={getFieldChangeHandler('<имя поля>')}`. Соответственно, `getFieldChangeHandler` должен возвращать функцию (почему? - ответ напишите в ридми). Избавьтесь в этой функции от использования event.target.name. Догадаетесь сами, откуда теперь брать то, что ранее лежало в атрибуте name?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+`getFieldChangeHandler` должен возвращать функцию, так как в выражении OnChange={} мы передаем функцию, а не её вызов
+```
 
-### `npm run build`
+### Выпадающее меню
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Давайте вспомним нашу кнопку, и сделаем на ее основе новый компонент - выпадающее меню. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Вам потребуется: кнопка с иконкой. При клике на кнопку около нее появляется меню из пунктов (пункты передаются через пропсы компоненту-меню). При клике в пункт меню у него выставляется галочка.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Скрывать пункт меню можно после клика на кнопку (простой вариант) или попробовать найти удобный для пользователя вариант (клик вне фиджета? выход мышкой за пределы? тут есть о чем подумать)
 
-### `npm run eject`
+### Фильтр
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Сделайте список html тегов (можно не очень полный) или любых других сущностей. Сделайте текстовый инпут, который фильтрует список. Пусть у инпута будет крестик, очищающий поле ввода. Пусть после каждой фильтрации (подумайте, что считать фильтрацией - отправку формы или задержку ввода на клавиатуре) использованное для фильтрации слово пусть попадает в подсказки под текстовым полем. При клике на “подсказку” она попадает в инпут и сразу должна осуществляться фильтрация
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Желтый коридор
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Контролируемое выпадающее меню
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Сейчас вы наверное сделали меню на базе локального стейта. Это хорошо. Давайте рискнем развить успех чтобы лучше понять, как работают контролируемые компоненты.
 
-## Learn More
+Ваше выпадающее меню должно ставить галочку у пункта меню в зависимости от пропса value, который вы создадите. При клике по пункту меню - вызывайте обработчик onChange (его вам тоже надо объявить в пропсах).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Битый пиксель
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+В давние времена, когда браузеры были странными, порой отступы делали с помощью картинки-пикселя, которую растягивали до нужных размеров. Для всяких IE, поверьте, это было надежнее чем паддинги, марджины, задваивающиеся в IE7 и так далее.
+
+Давайте представим себя в шкуре сервиса, который позволяет быстро скачать такой пиксель.
+
+Сделайте форму на стандартных html-элементах (можно использовать любые типы input, в том числе слайдеры, ну и обычные текстовые пойдут). В форме должно быть можно регулировать цвет. При желании еще - прозрачность.
+
+Картинку можно скачать нажатием на соответствующую кнопку. Как сгенерировать?
+
+**Простой вариант** – загружайте svg. Найдите где-нибудь квадратик, и хоть это не совсем про средние века, но зато разберетесь в формате svg. Только тогда чур, чтобы скачиваемый файл был максимально оптимизирован, все лишнее из него вырежьте (используйте svgo)
+
+**Вариант для воинов** – используйте canvas. Вы уже большие ребята, сможете на невидимом пользователю (уберите за край экрана) канвасе размером 1 на 1 нарисовать точку и использовать метод для того чтобы получить данные картинки в формате base64. В общем - в поиске довольно легко найти работающий код, с любыми вопросами приходите.
+
+### Стречинг
+
+Сделайте div, который можно ресайзить за уголки. На края можно забить. Желательно чтобы у уголков, за которые можно тянуть, менялся вид курсора.
+
+Усложнение – при перетаскивании края с зажатым shift пусть ресайз будет с сохранением пропорций.
+
+## Красный коридор
+
+### А вы фреймворки продаете?
+
+А что будет при работе не с базовыми элементами форм, а красивыми, которые нам предлагают современные css фреймворки?
+
+Поддерживается ли там концепция контролируемых компонентов?
+
+Возьмите любой набор компонентов для react, который найдете. Ваш запрос в поиск - `react ui kit`. Берите любой, который понравится и сделайте на его компонентах простую форму для входа на сайт - логин, пароль и кнопка войти. Если вы уже использовали какие-то такие наборы компонентов – попробуйте другой.
+
+Важно, чтобы после отправки формы мы вывели бы данные в интерфейс, чтобы убедиться, что мы смогли бы использовать их для запроса.
+
+Хотелось бы, чтобы обошлось без ref.
+
+
+## Запустить проект
+
+Склонируйте репозиторий и установите зависимости:
+
+```sh
+npm i
+```
+
+- Запуск приложения в development mode:
+
+    ```sh
+    npm start
+    ```
+    Откройте в браузере [http://localhost:3000](http://localhost:3000).
+
+
+- Создание production сборки (в папке build):
+
+    ```sh
+    npm run build
+    ```
